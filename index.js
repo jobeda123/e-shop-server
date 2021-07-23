@@ -63,6 +63,7 @@ client.connect((err) => {
   });
 
 
+
   // for get all product
   app.get("/products", (req, res) => {
     productCollection
@@ -96,6 +97,18 @@ client.connect((err) => {
         res.send(documents[0]);
       });
  });
+
+
+
+ // get all order for specific user
+ app.get('/allOrder', (req, res) => {
+   console.log("user email",req.query.email);
+  orderCollection.find({ email: req.query.email })
+      .toArray((err, items) => {
+          res.send(items);
+          console.log("all order: ",items);
+      })
+})
 
 
   //client.close();
