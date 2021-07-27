@@ -206,9 +206,10 @@ client.connect((err) => {
       console.log("all admin: ", items);
     });
   });
-
-
   //client.close();
 });
 
-app.listen(port, () => console.log(`Yes, I am listening to port ${port}`));
+app.get("/",(res,req) => {res.send("It is working....")});
+
+
+app.listen(process.env.PORT||port, () => console.log(`Yes, I am listening to port ${port}`));
