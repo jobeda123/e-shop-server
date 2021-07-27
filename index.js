@@ -93,6 +93,19 @@ client.connect((err) => {
 
 
 
+  // for get all product by search
+  app.get("/productBySearch/:search", (req, res) => {
+    const search=req.params.search;
+    console.log(search);
+    productCollection
+      .find({ title: {$regex: search} })
+      .toArray((err, documents) => {
+        res.send(documents);
+      });
+  });
+
+
+
   // for get order by id 
   app.get("/order", (req, res) => {
     const orderId = ObjectId(req.query.id);
