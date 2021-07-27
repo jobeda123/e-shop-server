@@ -68,17 +68,13 @@ client.connect((err) => {
     });
   });
 
-  
   // for get all product
   app.get("/products", (req, res) => {
-    productCollection
-      .find({})
-      .toArray((err, documents) => {
-        res.send(documents);
-        // console.log(documents);
-      });
+    productCollection.find({}).toArray((err, documents) => {
+      res.send(documents);
+      // console.log(documents);
+    });
   });
-
 
   // for get all product by category
   app.get("/products/:category", (req, res) => {
@@ -91,22 +87,18 @@ client.connect((err) => {
       });
   });
 
-
-
   // for get all product by search
   app.get("/productBySearch/:search", (req, res) => {
-    const search=req.params.search;
+    const search = req.params.search;
     console.log(search);
     productCollection
-      .find({ title: {$regex: search} })
+      .find({ title: { $regex: search } })
       .toArray((err, documents) => {
         res.send(documents);
       });
   });
 
-
-
-  // for get order by id 
+  // for get order by id
   app.get("/order", (req, res) => {
     const orderId = ObjectId(req.query.id);
     console.log("get order by id, server", orderId);
@@ -129,7 +121,6 @@ client.connect((err) => {
       res.status(401).send("un-authorized access");
     }
   });
-
 
   // get all order for specific user
   app.get("/allOrder", (req, res) => {
@@ -158,7 +149,6 @@ client.connect((err) => {
     }
   });
 
-
   // get all order for admin
   app.get("/allOrderAdmin", (req, res) => {
     console.log(req.headers.authorization);
@@ -178,13 +168,11 @@ client.connect((err) => {
         .catch((error) => {
           res.status(401).send("un-authorized access");
         });
-    }
-    else {
+    } else {
       res.status(401).send("un-authorized access");
     }
   });
 
-  
   // update user's order status by admin
   app.patch("/updateOrderStatus/:id", (req, res) => {
     orderCollection
@@ -197,8 +185,6 @@ client.connect((err) => {
       .then((result) => res.send(result));
   });
 
-
-
   // get all admin
   app.get("/allAdmin", (req, res) => {
     adminCollection.find({}).toArray((err, items) => {
@@ -209,7 +195,8 @@ client.connect((err) => {
   //client.close();
 });
 
-app.get("/",(res,req) => {res.send("It is working properly....")});
+app.get("/", (res, req) => res.send("It is working properly...."));
 
-
-app.listen(process.env.PORT||port, () => console.log(`Yes, I am listening ${port}`));
+app.listen(process.env.PORT || port, () =>
+  console.log(`Yes, I am listening ${port}`)
+);
